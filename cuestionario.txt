@@ -1,2 +1,15 @@
 What is the streaming model?
 
+
+Illustrate with some exmple problems, no solutions.
+(Later, discuss the streaming versions versus the classic versions, use real world examples)
+
+
+What are the basic topics a student should know to study some other streaming algoritms?
+
+Explain in depth four examples; start with the easiest. 
+
+
+
+Design some exercises.
+
