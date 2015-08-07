@@ -94,38 +94,79 @@ $$F_k = \Sigma^n_{i = n} m_i^k.$$
 \end{definition}
 
 
-
-
-
-
-Of course, the problem is easy if there is no restriction on the total memory.
-Insist that the total memory must be polylog in $n$.
-
-Introduce $F_k$ and say that the problem is to compute $F_0$.
-
-
-
-\subsection{A simple solution}
-If there is no restriction on the memory an algorithm can use, the problem can be easily solved:
-
-
-
-
-
+Thus $F_0$ is the number of distinct elements of $S$ while $F_1$ is its length.
+The second frequency momento $F_2$ is called the \emph{surprise index}
+and gives interesting information of a stream that is useful in several statistical applications.
+The next lecture presents the surprise index more in detail.
 
 \subsection{An algorithm}
 
-Alon et al.'s solution.
+The following simple and nice algorithm from Alon et al. estimates the number of distinct elements of a stream.
+It does so by estimating the number of bits needed to encode the elements in the string.
+
+The algorithm first picks a finite field large enough where all distinct values of the stream can be
+represented. Then, it picks at random a hash function (a polynomial) that maps each elemento to
+a member in the field. 
+For each element in the stream, the algorithm applies the hash function and then
+looks at the number consecutive 0's at the right of the binary representation.
+That number is what the algorithm is interested in, it returns the largest number it sees.
+
+Here it is important to remark that once a hash function is chosen, the algorithm is deterministic. In the analysis of 
+the algorithm (following section) it is important that for every element of the string $s_i$,
+$z_i$ (the value $s_i$ is mapped to) is uniformly distributed over ${0, ..., 2^d-1}$.
+Something that also is important about the hash function is that it is pairwise independent,
+a notion that is explained in the next section.
+
+
+
+
+\begin{verbatim}
+d = smallest integer so that 2^d > n
+a,b = two random values in {0, ..., 2^d-1} chosen uniformly and independently
+r = 0
+
+while(there are elements in the stream)
+   s_i = next in the stream
+   z_i = a s_i + b (product and addition are computed in the field GF(2^d))
+   r(z_i) = largest j so that the j rightmost bits of z_i are all 0
+   r = max{r(z_i), r}       
+endwhile
+
+return r
+
+\end{verbatim}
+
+
 
 \subsection{What is the algorithm computing?}
 
-The order of magnitude interpretation (with a table).
+
 
 
 \subsection{Not a formal analysis but so ideas to take away}
 
 
-\subsection{Excersises}
+
+
+\subsection{Exercises}
+
+
+\begin{enumerate}
+
+\item Give an algorithm that solves the distinct elements problem in $O(|S|)$ time
+and $O(n)$ memory. Prove its correctness.
+
+\item Run Alon et al.' algorithm with $S = 1 2 3 3 5 5 1 2 5$ and $a=2$ and $b=3$.
+Show all calculations in every while loop iteration.
+
+\item In you favorite programing language, write Alon et al.'s algorithm. 
+Run 10 experiments for $n=10$ and $N=100$ with random streams.
+How far is the algorithm from the solution?  
+\end{enumerate}
+
+
+
+\section{The surprise index of a stream}
 
 
 
