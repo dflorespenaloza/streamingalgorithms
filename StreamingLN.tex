@@ -120,19 +120,19 @@ Here it is important to remark that once a hash function is chosen, the algorith
 the algorithm (following section) it is important that for every element of the string $s_i$,
 $z_i$ (the value $s_i$ is mapped to) is uniformly distributed over ${0, ..., 2^d-1}$.
 Something that also is important about the hash function is that it is pairwise independent,
-a notion that is explained in the next section.
+a notion that is explained in the next section.\\
 
 
 
 
 \begin{verbatim}
 d = smallest integer so that 2^d > n
-a,b = two random values in {0, ..., 2^d-1} chosen uniformly and independently
+a,b = random values in the field GF(2^d) chosen uniformly and independently
 r = 0
 
 while(there are elements in the stream)
    s_i = next in the stream
-   z_i = a s_i + b (product and addition are computed in the field GF(2^d))
+   z_i = a s_i + b (product and addition are computed in GF(2^d))
    r(z_i) = largest j so that the j rightmost bits of z_i are all 0
    r = max{r(z_i), r}       
 endwhile
@@ -145,7 +145,18 @@ return r
 
 \subsection{What is the algorithm computing?}
 
+\begin{theorem}
+For every $c > 1$, the probability that $r$, the output of the algorithm, is {\bf not} in 
+$$[\log F_0 - \log c, \hdots, \log F_0 + \log c]$$ 
+is at most $\frac{1}{2^{c-1}}$.
+\end{theorem}
 
+What does the theorem is saying?
+First, to estimate the number of distinct elements in $S$, one might answer $\log F_0$,
+i.e., the number of bits needed to encode the values in $S$. 
+Thus, the theorem is stating that the probability that the algorithm fails in estimating
+this number exponentially decreases as the magnitud of the failure grows,
+as the following table shows.
 
 
 \subsection{Not a formal analysis but so ideas to take away}
@@ -205,6 +216,10 @@ How far is the algorithm from the solution?
 
 
 \section{The surprise index of a stream}
+
+
+
+\section{Impossibility result??}
 
 
 
