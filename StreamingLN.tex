@@ -1,4 +1,9 @@
-\documentclass[11pt]{article}
+\documentclass[12pt]{article}
+
+
+\usepackage{parskip} \setlength{\parindent}{15pt}
+
+
 \usepackage{geometry}                % See geometry.pdf to learn the layout options. There are lots.
 \geometry{letterpaper}                   % ... or a4paper or a5paper or ... 
 %\geometry{landscape}                % Activate for for rotated page geometry
@@ -145,6 +150,39 @@ return r
 
 \subsection{Not a formal analysis but so ideas to take away}
 
+Intuitively, the algorithm works because:
+\begin{itemize}
+\item On one hand, the probability that \emph{one} hashed number has $r$ zero right-most  bits, decreases exponentiallr fast on $r$.
+\item on the other hand, the probability that \emph{some} hashed number has $r$ zero right-most bits, increases exponentially fast on $r$.
+\end{itemize}
+These two probabilities are \emph{balanced} in such a way that that the probability of giving the right answer is "high".
+
+The exact details are of algebraic nature and can be presented within 30 minutes, taking a slow pace to make sure the students can understand. Of course we are assuming they have almost no previous exposure to probability, just as yours truly.
+
+Markov's and Chebyshev's inequalitys are used to bound the probability that the algorithm fails.
+
+\subsubsection{pairwise independence}
+
+Something not used as often as Markov's and Chebyshev's inequalitys, which is used and is very important 
+is the concept of \emph{pairwise independence}. During the proof, the variance of one random variable is calculated. 
+This variance depends on the fact that the probabilities that two distinct input numbers $a_i$ and $a_j$ are both mapped to numbers with at least $r$ zero right-most bits, are independent.
+
+In this particular algorithm, this is guaranteed because of the nature of our hashing functions.
+
+To understand what a pair-wise (or $k$-wise independent)  random distribution is, is easier to first see an example of a distribution that is not. 
+Consider a  random variable $X$ of two random bits, each bit having uniform probability for having one of zero.
+
+We can define $X$ as having a value of the set $\{00,11\}$ with uniform probability. This random variable satisfies the required property. Nevertheles, the two bits of $X$ are always equal. The probability of $X$ is not uniformly distributed on the set of two bit values $\{00,01,10,11\}$.
+Thus, $X$ has no more \emph{randomness} than a single bit random variable.
+
+Now consider $X$ defined as having a value of the set $\{00,01,10,11\}$ with uniform probability. Now, the selection of the first bit can be seen as completely independent of the selection of the second bit: given the value of the first bit, the probabilities  of the second bit to be one or zero are equal.
+
+The algorithm we are analyzing is in fact deterministic, but it depends on the random selection of a hash function. This hash function is the component which let's us consider our input stream as a stream of pair-wise independent, uniformly distributed random numbers in a known range. And the algorithm depends heavily on this property.
+
+The proof that the pairwise-independence of the transformed input string is easy and should be presented. Maybe ten minutes is enough.
+ 
+It could be good to give more examples of the application of $k$-pairwise independence.
+
 
 
 
@@ -172,7 +210,9 @@ How far is the algorithm from the solution?
 
 \begin{thebibliography}{XXX}
 
-\bibitem{Ref1} Reference 1.
+\bibitem{Ref1} . N. Alon, Y. Matias, M. Azegedy. The Space Complexity of Approximating the Frequency Moments. J. Computer Systems and Sciences. 58:(137--147), 1999.
+
+Let's add books. Some recommendations?
 
 \end{thebibliography}
 
