@@ -160,6 +160,27 @@ as the following table shows.
 
 
 \subsection{Not a formal analysis but so ideas to take away}
+\begin{table}[htdp]
+
+\begin{center}
+\begin{tabular}{|c|c|c|}
+Number of error bits & Failure probability & Success Probability \\
+1 & 1 & 0 \\
+2 & .5 & .5 \\
+3 & .25 & .75 \\
+4 & .125 & .875 \\
+5 & .062 & .938 \\
+6 & .031 & .969 \\
+7 & .015 & .984 \\
+8 & .007 & .992 \\
+i & $\frac{1} {2^{i-1}}$ & $1- \frac {1} {2^{i-1}}$
+
+\end{tabular}
+\end{center}
+\label{table}
+\caption{How much confidence we can have in the algorithm.}
+\end{table}%
+
 
 Intuitively, the algorithm works because:
 \begin{itemize}
@@ -167,6 +188,8 @@ Intuitively, the algorithm works because:
 \item on the other hand, the probability that \emph{some} hashed number has $r$ zero right-most bits, increases exponentially fast on $r$.
 \end{itemize}
 These two probabilities are \emph{balanced} in such a way that that the probability of giving the right answer is "high".
+
+Note that this \emph{balancing probability} occurs very often in this class of algorithms.
 
 The exact details are of algebraic nature and can be presented within 30 minutes, taking a slow pace to make sure the students can understand. Of course we are assuming they have almost no previous exposure to probability, just as yours truly.
 
